@@ -10,22 +10,28 @@ import Rating from './components/Rating'
 import Endurance from './components/Endurance'
 import Science from './components/Science'
 import Footer from './components/Footer'
+import Music from './components/Music';
+import Awards from './components/Awards';
+import Overview from './components/Overview';
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-    <Header/>
-    <Banner/>
-    <Story/>
-    <Science/>
-    <Cast/>
-    <Endurance/>
-    <Gallery/>
-    <Trailer/>
-    <Rating/>
-    <Footer/>
+      <Header />
+      <Banner />
+      <Overview/>
+      <Story />
+      <Science />
+      <Cast />
+      <Endurance />
+      <Gallery />
+      <Music/>
+      <Trailer />
+      <Rating />
+      <Awards/>
+      <Footer />
 
     </>
   )

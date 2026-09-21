@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 
 /* =========================================================
-   MOVIE DATA
+   MOVIE DATA & AWARDS
    ========================================================= */
 
 const INTERSTELLAR = {
@@ -19,14 +19,49 @@ const INTERSTELLAR = {
   scores: [
     {
       source: "Rotten Tomatoes",
-      value: "73%",
+      value: "73% Critics / 92% Audience",
     },
     {
       source: "Metacritic",
-      value: "74/100",
+      value: "74 / 100",
+    },
+    {
+      source: "Global Box Office",
+      value: "$731.5 Million",
     },
   ],
 };
+
+const AWARDS = [
+  {
+    title: "OSCAR® WINNER",
+    subtitle: "Best Achievement in Visual Effects",
+    recipient: "Paul Franklin, Andrew Lockley, Ian Hunter, Scott Fisher",
+    icon: "🏆",
+    badge: "ACADEMY AWARDS 2015",
+  },
+  {
+    title: "8.7 / 10 IMDB",
+    subtitle: "Top 250 Movies #20",
+    recipient: "Over 2.1 Million Public Ratings",
+    icon: "⭐️",
+    badge: "GLOBAL AUDIENCE RATING",
+  },
+  {
+    title: "92% AUDIENCE SCORE",
+    subtitle: "Rotten Tomatoes Certified Fresh",
+    recipient: "Verified Audience & Critical Consensus",
+    icon: "🍿",
+    badge: "CRITICAL RECEPTION",
+  },
+  {
+    title: "BAFTA & GRAMMY®",
+    subtitle: "Best Original Score & Special Effects",
+    recipient: "Composer Hans Zimmer · Syncopy",
+    icon: "🎼",
+    badge: "MUSIC & SOUND DESIGN",
+  },
+];
 
 /* =========================================================
    IN VIEW HOOK
@@ -84,9 +119,9 @@ function ScoreDial({ score, outOf, visible }) {
             x2="1"
             y2="1"
           >
-            <stop offset="0%" stopColor="#d8c8a5" />
-            <stop offset="50%" stopColor="#b8a57b" />
-            <stop offset="100%" stopColor="#77705c" />
+            <stop offset="0%" stopColor="#ffffff" />
+            <stop offset="50%" stopColor="#93c5fd" />
+            <stop offset="100%" stopColor="#60a5fa" />
           </linearGradient>
         </defs>
 
@@ -132,10 +167,6 @@ function StatRow({ label, value, index, visible }) {
       }}
     >
       <div className="itr-stat__label">
-        <span className="itr-stat__index">
-          0{index + 1}
-        </span>
-
         <span>{label}</span>
       </div>
 
@@ -177,16 +208,10 @@ export default function Rating({
         visible ? "is-visible" : ""
       }`}
     >
-      {/* =================================================
-          ATMOSPHERE
-         ================================================= */}
-
+      {/* Atmosphere Nebula */}
       <div className="itr-ratings__nebula" />
 
-      <div
-        className="itr-ratings__stars"
-        aria-hidden="true"
-      >
+      <div className="itr-ratings__stars" aria-hidden="true">
         <span />
         <span />
         <span />
@@ -196,61 +221,46 @@ export default function Rating({
       </div>
 
       <Container>
-
-        {/* =================================================
-            SECTION HEADER
-           ================================================= */}
-
+        {/* Section Header */}
         <header className="itr-ratings__head">
-
-          <div className="itr-ratings__eyebrow">
-            <span />
-            <small>
-              MISSION ARCHIVE · CRITICAL RESPONSE
-            </small>
-            <span />
-          </div>
-
-          <p className="itr-ratings__kicker">
-            THE RECEPTION
-          </p>
+          <span className="itr-ratings__eyebrow">
+            MISSION ARCHIVE · CRITICAL RESPONSE
+          </span>
 
           <h2 className="itr-ratings__heading">
-            By the <em>Numbers</em>
+            Accreditations & Reception
           </h2>
 
           <p className="itr-ratings__sub">
-            A snapshot of how the journey was received
-            beyond the screen.
+            Global critical recognition, Academy Awards, and verified audience response.
           </p>
         </header>
 
-        {/* =================================================
-            MAIN CARD
-           ================================================= */}
+        {/* 4-Card Film Awards Grid */}
+        <Row className="award-cards-grid g-4 mb-5">
+          {AWARDS.map((award) => (
+            <Col key={award.title} lg={3} md={6} xs={12}>
+              <div className="award-card section-glass-card">
+                <div className="award-card-header">
+                  <span className="award-icon">{award.icon}</span>
+                  <span className="award-badge">{award.badge}</span>
+                </div>
+                <h3 className="award-title">{award.title}</h3>
+                <p className="award-subtitle">{award.subtitle}</p>
+                <p className="award-recipient">{award.recipient}</p>
+              </div>
+            </Col>
+          ))}
+        </Row>
 
-        <article className="itr-card">
-
-          {/* Decorative frame */}
-          <span className="itr-card__corner itr-card__corner--tl" />
-          <span className="itr-card__corner itr-card__corner--tr" />
-          <span className="itr-card__corner itr-card__corner--bl" />
-          <span className="itr-card__corner itr-card__corner--br" />
-
+        {/* Main Rating Card */}
+        <article className="itr-card section-glass-card">
           <Row className="g-0 align-items-stretch">
-
-            {/* =================================================
-                MOVIE IDENTITY
-               ================================================= */}
-
-            <Col
-              xs={12}
-              lg={7}
-              className="itr-card__left"
-            >
+            {/* Left Movie Identity */}
+            <Col xs={12} lg={7} className="itr-card__left">
               <div className="itr-card__mission">
                 <span className="itr-card__mission-dot" />
-                FILM DATABASE / 001
+                FILM DATABASE / ACCREDITATION 001
               </div>
 
               <h2 className="itr-card__title">
@@ -260,11 +270,8 @@ export default function Rating({
               <div className="itr-card__meta">
                 {meta.map((item, index) => (
                   <React.Fragment key={item}>
-                    <span>{item}</span>
-
-                    {index < meta.length - 1 && (
-                      <i />
-                    )}
+                    <span className="meta-item-tag">{item}</span>
+                    {index < meta.length - 1 && <i className="meta-dot" />}
                   </React.Fragment>
                 ))}
               </div>
@@ -272,58 +279,39 @@ export default function Rating({
               <div className="itr-card__divider" />
 
               <dl className="itr-card__credits">
-
                 <div className="itr-credit">
-                  <dt>Director</dt>
-
-                  <dd>
-                    {director}
-                  </dd>
+                  <dt>DIRECTOR</dt>
+                  <dd>{director}</dd>
                 </div>
 
                 <div className="itr-credit">
-                  <dt>Genre</dt>
-
+                  <dt>GENRES</dt>
                   <dd>
                     {genres.map((genre) => (
-                      <span key={genre}>
+                      <span key={genre} className="genre-tag">
                         {genre}
                       </span>
                     ))}
                   </dd>
                 </div>
-
               </dl>
 
               <div className="itr-card__quote">
-                <span>"</span>
-
+                <span>“</span>
                 <p>
-                  Mankind was born on Earth.
-                  It was never meant to die here.
+                  Mankind was born on Earth. It was never meant to die here.
                 </p>
               </div>
             </Col>
 
-            {/* =================================================
-                RATINGS
-               ================================================= */}
-
-            <Col
-              xs={12}
-              lg={5}
-              className="itr-card__right"
-            >
+            {/* Right Public Score & Additional Metrics */}
+            <Col xs={12} lg={5} className="itr-card__right">
               <div className="itr-card__right-head">
-                <span>PUBLIC SCORE</span>
-
-                <span className="itr-card__code">
-                  RATING / 001
-                </span>
+                <span>PUBLIC & CRITICAL SCORE</span>
+                <span className="itr-card__code">VERIFIED 2014</span>
               </div>
 
               <div className="itr-card__imdb">
-
                 <ScoreDial
                   score={imdb.score}
                   outOf={imdb.outOf}
@@ -331,23 +319,16 @@ export default function Rating({
                 />
 
                 <div className="itr-card__imdb-info">
-                  <p>IMDb</p>
-
-                  <span>
-                    Audience rating
-                  </span>
-
-                  <small>
-                    {imdb.score} / {imdb.outOf}
+                  <p className="imdb-title">IMDb RATING</p>
+                  <span className="imdb-sub">Global Audience Verdict</span>
+                  <small className="imdb-score-text">
+                    {imdb.score} / {imdb.outOf} (2.1M+ Votes)
                   </small>
                 </div>
               </div>
 
               <div className="itr-card__stats">
-
-                <p className="itr-card__stats-title">
-                  ADDITIONAL METRICS
-                </p>
+                <p className="itr-card__stats-title">ADDITIONAL METRICS</p>
 
                 {scores.map((score, index) => (
                   <StatRow
@@ -358,40 +339,11 @@ export default function Rating({
                     visible={visible}
                   />
                 ))}
-
-              </div>
-
-              <div className="itr-card__signal">
-                <span />
-                <span />
-                <span />
-                <span />
-                <span />
-                <span />
-                <span />
               </div>
             </Col>
-
           </Row>
         </article>
-
-        {/* =================================================
-            FOOTER
-           ================================================= */}
-
-        <div className="itr-ratings__footer">
-          <span />
-
-          <p>
-            <strong>DATA VERIFIED</strong>
-            <br />
-            EARTH · 2014
-          </p>
-
-          <span />
-        </div>
-
       </Container>
     </section>
   );
-}
+}

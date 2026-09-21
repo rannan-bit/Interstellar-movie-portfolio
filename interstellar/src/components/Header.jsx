@@ -4,8 +4,14 @@ import "../App.css";
 
 const NAV_LINKS = [
   { label: "Home", href: "#home" },
+  { label: "Movie Overview", href: "#overview" },
+  { label: "Story", href: "#story" },
+  { label: "Science", href: "#science" },
   { label: "Cast", href: "#cast" },
-  { label: "Trailer", href: "#trailer" },
+  { label: "Endurance", href: "#endurance" },
+  { label: "Gallery", href: "#gallery" },
+  { label: "Music", href: "#music" },
+  { label: "Ratings", href: "#ratings" },
 ];
 
 const SCROLL_OFFSET = 80;
@@ -20,7 +26,7 @@ function Header() {
   ---------------------------------------- */
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 30);
+      setScrolled(window.scrollY > 20);
     };
 
     handleScroll();
@@ -35,7 +41,32 @@ function Header() {
   }, []);
 
   /* ----------------------------------------
-     Scroll spy
+     Close mobile menu on ESC key or resize
+  ---------------------------------------- */
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape" && expanded) {
+        setExpanded(false);
+      }
+    };
+
+    const handleResize = () => {
+      if (window.innerWidth >= 1200 && expanded) {
+        setExpanded(false);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [expanded]);
+
+  /* ----------------------------------------
+     Scroll spy with IntersectionObserver
   ---------------------------------------- */
   useEffect(() => {
     const sections = NAV_LINKS.map((link) =>
@@ -58,8 +89,8 @@ function Header() {
         }
       },
       {
-        rootMargin: "-80px 0px -55% 0px",
-        threshold: [0.1, 0.25, 0.5],
+        rootMargin: "-80px 0px -40% 0px",
+        threshold: [0.15, 0.4, 0.7],
       }
     );
 
@@ -69,7 +100,7 @@ function Header() {
   }, []);
 
   /* ----------------------------------------
-     Smooth navigation
+     Smooth navigation click
   ---------------------------------------- */
   const handleNavClick = useCallback((e, href) => {
     e.preventDefault();
@@ -97,7 +128,7 @@ function Header() {
   return (
     <Navbar
       fixed="top"
-      expand="lg"
+      expand="xl"
       expanded={expanded}
       onToggle={setExpanded}
       className={`interstellar-header ${
@@ -106,7 +137,7 @@ function Header() {
       data-bs-theme="dark"
     >
       {/* Animated space particles */}
-      <div className="header-stars">
+      <div className="header-stars" aria-hidden="true">
         <span></span>
         <span></span>
         <span></span>
@@ -114,46 +145,45 @@ function Header() {
         <span></span>
       </div>
 
-      <Container className="header-container">
-
+      <Container fluid="xl" className="header-container">
         {/* --------------------------------
-            LOGO
+            LOGO & BRANDING
         -------------------------------- */}
         <Navbar.Brand
           href="#home"
           onClick={(e) => handleNavClick(e, "#home")}
           className="interstellar-logo"
         >
-          <span className="logo-symbol">
+          <span className="logo-symbol" aria-hidden="true">
             ✦
           </span>
 
-          <span className="logo-text">
-            INTERSTELLAR
-          </span>
+          <div className="logo-text-group">
+            <span className="logo-text">INTERSTELLAR</span>
+          </div>
         </Navbar.Brand>
 
         {/* --------------------------------
-            MOBILE TOGGLE
+            MOBILE TOGGLE BUTTON
         -------------------------------- */}
         <Navbar.Toggle
           aria-controls="interstellar-nav"
+          aria-label={expanded ? "Close navigation menu" : "Open navigation menu"}
           className={`interstellar-toggle ${
             expanded ? "menu-open" : ""
           }`}
         >
-          <span></span>
-          <span></span>
-          <span></span>
+          <span className="toggle-line"></span>
+          <span className="toggle-line"></span>
+          <span className="toggle-line"></span>
         </Navbar.Toggle>
 
         {/* --------------------------------
-            NAVIGATION
+            NAVIGATION LINKS & CTA
         -------------------------------- */}
         <Navbar.Collapse id="interstellar-nav">
           <Nav className="ms-auto interstellar-nav">
-
-            {NAV_LINKS.map((link, index) => {
+            {NAV_LINKS.map((link) => {
               const id = link.href.substring(1);
               const isActive = activeSection === id;
 
@@ -168,10 +198,6 @@ function Header() {
                     isActive ? "active" : ""
                   }`}
                 >
-                  <span className="nav-number">
-                    0{index + 1}
-                  </span>
-
                   <span className="nav-label">
                     {link.label}
                   </span>
@@ -183,6 +209,15 @@ function Header() {
               );
             })}
 
+            {/* HEADER CTA BUTTON */}
+            <a
+              href="#trailer"
+              onClick={(e) => handleNavClick(e, "#trailer")}
+              className="header-cta-btn"
+            >
+              <span className="cta-icon">▶</span>
+              <span className="cta-text">TRAILER</span>
+            </a>
           </Nav>
         </Navbar.Collapse>
       </Container>
@@ -191,3 +226,4 @@ function Header() {
 }
 
 export default Header;
+

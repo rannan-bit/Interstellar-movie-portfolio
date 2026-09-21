@@ -152,14 +152,10 @@ export default function Endurance() {
 
               {/* Image information */}
               <div className="itr-hull__label">
-                <span>VESSEL IDENTIFICATION</span>
                 <strong>ENDURANCE</strong>
               </div>
 
-              <div className="itr-hull__coordinates">
-                <span>LAT 00° 00' 00"</span>
-                <span>LONG 00° 00' 00"</span>
-              </div>
+             
 
               {/* Scan line */}
               <div className="itr-hull__scan" />
@@ -193,21 +189,7 @@ export default function Endurance() {
               </div>
 
               {/* Mission status */}
-              <div className="itr-hud__status">
-                <span
-                  className="itr-hud__dot"
-                  aria-hidden="true"
-                />
-
-                <span>
-                  Mission status:
-                  <strong> ACTIVE</strong>
-                </span>
-
-                <span className="itr-hud__status-code">
-                  001
-                </span>
-              </div>
+             
 
               {/* Data fields */}
               <dl className="itr-hud__fields">
@@ -244,9 +226,7 @@ export default function Endurance() {
                   </span>
                 </Button>
 
-                <span className="itr-hud__footer-code">
-                  ENDURANCE / 2014
-                </span>
+                
               </div>
             </div>
           </Col>

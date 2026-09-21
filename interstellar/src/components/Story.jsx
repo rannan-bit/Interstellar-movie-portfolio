@@ -124,11 +124,7 @@ function Story() {
                     {card.number}
                   </div>
 
-                  {/* Corner frame */}
-                  <span className="card-corner card-corner-tl" />
-                  <span className="card-corner card-corner-tr" />
-                  <span className="card-corner card-corner-bl" />
-                  <span className="card-corner card-corner-br" />
+                
 
                 </div>
 
@@ -148,17 +144,7 @@ function Story() {
                     {card.description}
                   </p>
 
-                  <div className="story-card-footer">
-
-                    <span className="story-card-explore">
-                      EXPLORE
-                    </span>
-
-                    <span className="story-card-arrow">
-                      ↗
-                    </span>
-
-                  </div>
+                  
 
                 </div>
 
@@ -179,7 +165,7 @@ function Story() {
           <span className="story-bottom-line" />
 
           <p>
-            WE ARE ALL CONNECTED BY TIME
+            ***
           </p>
 
           <span className="story-bottom-line" />
